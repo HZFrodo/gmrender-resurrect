@@ -144,6 +144,8 @@ static GstState get_current_player_state() {
 }
 
 static int output_gstreamer_play(output_transition_cb_t callback) {
+	Log_info("gstreamer", "%s(): %d\n", __func__, __LINE__);
+#if 0
 	play_trans_callback_ = callback;
 	if (get_current_player_state() != GST_STATE_PAUSED) {
 		if (gst_element_set_state(player_, GST_STATE_READY) ==
@@ -158,45 +160,67 @@ static int output_gstreamer_play(output_transition_cb_t callback) {
 		Log_error("gstreamer", "setting play state failed (2)");
 		return -1;
 	}
+#endif
 	return 0;
 }
 
 static int output_gstreamer_stop(void) {
+	Log_info("gstreamer", "%s(): %d\n", __func__, __LINE__);
+	// playerctl --player=vlc stop
+#if 0
 	if (gst_element_set_state(player_, GST_STATE_READY) ==
 	    GST_STATE_CHANGE_FAILURE) {
 		return -1;
 	} else {
 		return 0;
 	}
+#endif
+	return 0;
 }
 
 static int output_gstreamer_pause(void) {
+	Log_info("gstreamer", "%s(): %d\n", __func__, __LINE__);
+#if 0
 	if (gst_element_set_state(player_, GST_STATE_PAUSED) ==
 	    GST_STATE_CHANGE_FAILURE) {
 		return -1;
 	} else {
 		return 0;
 	}
+#endif
+	return 0;
 }
 
 static int output_gstreamer_seek(gint64 position_nanos) {
+	Log_info("gstreamer", "%s(): %d\n", __func__, __LINE__);
+#if 0
 	if (gst_element_seek_simple(player_, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH,
 								position_nanos)) {
 		return 0;
 	} else {
 		return -1;
 	}
+#endif
+	return 0;
 }
 
 static void output_gstreamer_set_next_uri(const char *uri) {
+	Log_info("gstreamer", "%s(): %d\n", __func__, __LINE__);
+#if 0
 	Log_info("gstreamer", "Set next uri to '%s'", uri);
 	free(gs_next_uri_);
 	gs_next_uri_ = (uri && *uri) ? strdup(uri) : NULL;
+#endif
 }
 
 static void output_gstreamer_set_uri(const char *uri,
 				     output_update_meta_cb_t meta_cb) {
 	Log_info("gstreamer", "Set uri to '%s'", uri);
+	Log_info("gstreamer", "%s(): %d\n", __func__, __LINE__);
+
+	// playerctl --player=vlc stop
+	// playerctl --player=vlc open '%s'
+#if 0
 	free(gsuri_);
 	gsuri_ = (uri && *uri) ? strdup(uri) : NULL;
 	meta_update_callback_ = meta_cb;
@@ -205,6 +229,7 @@ static void output_gstreamer_set_uri(const char *uri,
 	// If already playing, update the playbin's URI
 	if (get_current_player_state() == GST_STATE_PLAYING)
 		output_gstreamer_play(play_trans_callback_);
+#endif
 }
 
 #if 0
