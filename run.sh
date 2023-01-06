@@ -7,3 +7,5 @@ VLC/3.0.18
 
 curl/7.87.
 %s8 aria2/1.36.6
+
+--sub-source=marq --marq-marquee="%Y-%m-%d %H:%M:%S" --marq-position=9 --marq-size=18
